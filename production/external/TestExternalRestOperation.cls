@@ -17,6 +17,7 @@ Method OpenFire(pRequest As btships.production.fire.Request, Output pResponse As
         Set tSC = ..Adapter.Post(.adapterOutput, , tPayload)
 
         Set idfk = adapterOutput.Data
+        ///todo: stream check
         Set idfk = idfk.Read(idfk.Size)
         Set dataObj = ##class(%DynamicAbstractObject).%FromJSON(idfk)
         Set pResponse.Report = dataObj.%Get("Report", "No data", "string")
