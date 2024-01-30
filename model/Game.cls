@@ -5,9 +5,9 @@ Class btships.model.Game Extends %Persistent
 /// Players, contains their grids and status
 Property Players As array Of btships.model.Player;
 
-ForeignKey PlayersForeignKey(Players) References btships.model.Player(PlayersIndex) [ OnDelete = cascade ];
+ForeignKey PlayerForeignKey(Players) References btships.model.Player(PlayerIndex) [ OnDelete = cascade ];
 
-Index PlayersIndex On Players;
+Index PlayerIndex On Players;
 
 /// Game Grid X Axis Size, if undefined the default will be used
 Property GameSizeX As %Integer;

@@ -21,7 +21,11 @@ Property Status As %Integer [ InitialExpression = 0 ];
 /// If this cell has part of a ship within it's bounds, reference the parent ship
 Property OccupyingShip As btships.model.Ship;
 
-Relationship Grid As btships.model.Grid [ Cardinality = parent, Inverse = GridCells ];
+Property Grid As btships.model.Grid;
+
+ForeignKey GridForeignKey(Grid) References btships.model.Grid(GridIndex);
+
+Index GridIndex On Grid;
 
 /// Initializes a new cell with the provided arguments for initialization
 Method Initialize(xInput As %Integer, yInput As %Integer, status As %Integer) As %Status

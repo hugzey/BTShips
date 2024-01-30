@@ -8,16 +8,30 @@ Property IsFirstPlayer As %Boolean;
 /// The player's grids,
 /// the first of two containing their ships and grid cells,
 /// the second containing the opposing player's ships and grid cells
-Relationship Grids As btships.model.Grid [ Cardinality = children, Inverse = Player ];
+Property Grids As array Of btships.model.Grid;
+
+ForeignKey GridForeignKey(Grids) References btships.model.Grid(GridIndex) [ OnDelete = cascade ];
+
+Index GridIndex On Grids;
 
 /// Is it this player's turn
 Property IsCurrentTurn As %Boolean;
 
 /// The player's fleet, which contains all their ships
-Relationship Fleet As btships.model.Fleet [ Cardinality = children, Inverse = Player ];
+Property Fleet As array Of btships.model.Fleet;
+
+ForeignKey FleetForeignKey(Fleet) References btships.model.Fleet(FleetIndex) [ OnDelete = cascade ];
+
+Index FleetIndex On Fleet;
 
 /// Current Ship selected for placement
 Property SelectedShip As btships.model.Ship;
+
+Property Game As btships.model.Game;
+
+ForeignKey GameForeignKey(Game) References btships.model.Game(GameIndex);
+
+Index GameIndex On Game;
 
 // Relationship Game As btships.model.Game [ Cardinality = parent, Inverse = Players ];
 
@@ -106,30 +120,6 @@ Method OpenFire(x As %Integer, y As %Integer) As %Integer
 Method IsItMyTurn() As %Boolean
 {
     Return ..IsCurrentTurn
-}
-
-Storage Default
-{
-<Data name="PlayerDefaultData">
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>IsFirstPlayer</Value>
-</Value>
-<Value name="3">
-<Value>IsCurrentTurn</Value>
-</Value>
-<Value name="4">
-<Value>SelectedShip</Value>
-</Value>
-</Data>
-<DataLocation>^btships.model.PlayerD</DataLocation>
-<DefaultData>PlayerDefaultData</DefaultData>
-<IdLocation>^btships.model.PlayerD</IdLocation>
-<IndexLocation>^btships.model.PlayerI</IndexLocation>
-<StreamLocation>^btships.model.PlayerS</StreamLocation>
-<Type>%Storage.Persistent</Type>
 }
 
 }

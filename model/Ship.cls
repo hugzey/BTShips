@@ -23,7 +23,11 @@ Property Status As %Integer;
 /// This states true if the ship is alligned vertically with the Y axis
 Property IsVerticallyAlligned As %Boolean;
 
-Relationship Fleet As btships.model.Fleet [ Cardinality = parent, Inverse = Ships ];
+Property Fleet As btships.model.Fleet;
+
+ForeignKey FleetForeignKey(Fleet) References btships.model.Fleet(FleetIndex);
+
+Index FleetIndex On Fleet;
 
 /// Initializes the ship with it's provided arguments to populate the properties.
 Method Initialize(length As %Integer, width As %Integer) As %Status
@@ -102,6 +106,9 @@ Storage Default
 </Value>
 <Value name="8">
 <Value>IsVerticallyAlligned</Value>
+</Value>
+<Value name="9">
+<Value>Fleet</Value>
 </Value>
 </Data>
 <DataLocation>^btships.model.ShipD</DataLocation>

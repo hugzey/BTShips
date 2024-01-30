@@ -9,9 +9,17 @@ Property FleetSize As %Integer;
 Property StartingFleetSize As %Integer;
 
 /// The collection of all ships in the fleet
-Relationship Ships As btships.model.Ship [ Cardinality = children, Inverse = Fleet ];
+Property Ships As array Of btships.model.Ship;
 
-Relationship Player As btships.model.Player [ Cardinality = parent, Inverse = Fleet ];
+ForeignKey ShipsForeignKey(Ships) References btships.model.Ship(ShipsIndex) [ OnDelete = cascade ];
+
+Index ShipsIndex On Ships;
+
+Property Player As btships.model.Player;
+
+ForeignKey PlayerForeignKey(Player) References btships.model.Player(PlayerIndex);
+
+Index PlayerIndex On Player;
 
 /// The template to use for initializing the game, this can be set to change the ships that are used in the game
 Property FleetTemplate As array Of btships.model.Ship;
@@ -76,37 +84,6 @@ Method Initialize() As %Status
             Do exception.Log()
             Return $$$ERROR(ObjectScriptError, "Exception occurred during fleet initialization")
         }
-}
-
-Storage Default
-{
-<Data name="FleetDefaultData">
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>FleetSize</Value>
-</Value>
-<Value name="3">
-<Value>StartingFleetSize</Value>
-</Value>
-</Data>
-<Data name="FleetTemplate">
-<Attribute>FleetTemplate</Attribute>
-<Structure>subnode</Structure>
-<Subscript>"FleetTemplate"</Subscript>
-</Data>
-<Data name="Ships">
-<Attribute>Ships</Attribute>
-<Structure>subnode</Structure>
-<Subscript>"Ships"</Subscript>
-</Data>
-<DataLocation>^btships.model.FleetD</DataLocation>
-<DefaultData>FleetDefaultData</DefaultData>
-<IdLocation>^btships.model.FleetD</IdLocation>
-<IndexLocation>^btships.model.FleetI</IndexLocation>
-<StreamLocation>^btships.model.FleetS</StreamLocation>
-<Type>%Storage.Persistent</Type>
 }
 
 }
