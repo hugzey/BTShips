@@ -8,11 +8,11 @@ Property IsFirstPlayer As %Boolean;
 /// The player's grids,
 /// the first of two containing their ships and grid cells,
 /// the second containing the opposing player's ships and grid cells
-Property Grids As array Of btships.model.Grid;
+Property Grids As btships.model.Grid;
 
-ForeignKey GridForeignKey(Grids) References btships.model.Grid(GridIndex) [ OnDelete = cascade ];
+ForeignKey GridsForeignKey(Grids) References btships.model.Grid() [ OnDelete = cascade ];
 
-Index GridIndex On Grids;
+Index Grids On Grids;
 
 /// Is it this player's turn
 Property IsCurrentTurn As %Boolean;
@@ -20,18 +20,10 @@ Property IsCurrentTurn As %Boolean;
 /// The player's fleet, which contains all their ships
 Property Fleet As array Of btships.model.Fleet;
 
-ForeignKey FleetForeignKey(Fleet) References btships.model.Fleet(FleetIndex) [ OnDelete = cascade ];
-
-Index FleetIndex On Fleet;
-
 /// Current Ship selected for placement
 Property SelectedShip As btships.model.Ship;
 
 Property Game As btships.model.Game;
-
-ForeignKey GameForeignKey(Game) References btships.model.Game(GameIndex);
-
-Index GameIndex On Game;
 
 // Relationship Game As btships.model.Game [ Cardinality = parent, Inverse = Players ];
 
@@ -120,6 +112,43 @@ Method OpenFire(x As %Integer, y As %Integer) As %Integer
 Method IsItMyTurn() As %Boolean
 {
     Return ..IsCurrentTurn
+}
+
+Storage Default
+{
+<Data name="Fleet">
+<Attribute>Fleet</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"Fleet"</Subscript>
+</Data>
+<Data name="Grids">
+<Attribute>Grids</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"Grids"</Subscript>
+</Data>
+<Data name="PlayerDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>IsFirstPlayer</Value>
+</Value>
+<Value name="3">
+<Value>IsCurrentTurn</Value>
+</Value>
+<Value name="4">
+<Value>SelectedShip</Value>
+</Value>
+<Value name="5">
+<Value>Game</Value>
+</Value>
+</Data>
+<DataLocation>^btships.model.PlayerD</DataLocation>
+<DefaultData>PlayerDefaultData</DefaultData>
+<IdLocation>^btships.model.PlayerD</IdLocation>
+<IndexLocation>^btships.model.PlayerI</IndexLocation>
+<StreamLocation>^btships.model.PlayerS</StreamLocation>
+<Type>%Storage.Persistent</Type>
 }
 
 }

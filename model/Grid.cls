@@ -14,17 +14,17 @@ Property SizeX As %Integer;
 /// The initial size of the grid's Y coordinates
 Property SizeY As %Integer;
 
+Property GridCells As btships.model.Cell;
+
+ForeignKey GridCellForeignKey(GridCells) References btships.model.Cell() [ OnDelete = cascade ];
+
+Index GridCells On GridCells;
+
 Property Player As btships.model.Player;
 
-ForeignKey PlayerForeignKey(Player) References btships.model.Player(PlayerIndex);
+ForeignKey PlayerForeignKey(Player) References btships.model.Player();
 
-Index PlayerIndex On Player;
-
-Property GridCells As array Of btships.model.Cell;
-
-ForeignKey GridCellForeignKey(GridCells) References btships.model.Cell(GridCellIndex) [ OnDelete = cascade ];
-
-Index GridCellIndex On GridCells;
+Index Player On Player;
 
 /// This method is to provide the new cell the data needed to instantiate correctly
 Method EstablishCell(column As %Integer, row As %Integer, isHomeGrid As %Boolean) As btships.model.Cell
@@ -121,6 +121,43 @@ Method Report(reportMessage As %String) As %Status
 {
     Write !,reportMessage
     Return $$$OK
+}
+
+Storage Default
+{
+<Data name="Cell">
+<Attribute>Cell</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"Cell"</Subscript>
+</Data>
+<Data name="GridCells">
+<Attribute>GridCells</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"GridCells"</Subscript>
+</Data>
+<Data name="GridDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>SizeX</Value>
+</Value>
+<Value name="3">
+<Value>SizeY</Value>
+</Value>
+<Value name="4">
+<Value>Player</Value>
+</Value>
+<Value name="5">
+<Value>newSaleItem</Value>
+</Value>
+</Data>
+<DataLocation>^btships.model.GridD</DataLocation>
+<DefaultData>GridDefaultData</DefaultData>
+<IdLocation>^btships.model.GridD</IdLocation>
+<IndexLocation>^btships.model.GridI</IndexLocation>
+<StreamLocation>^btships.model.GridS</StreamLocation>
+<Type>%Storage.Persistent</Type>
 }
 
 }

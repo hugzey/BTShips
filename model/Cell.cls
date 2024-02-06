@@ -23,9 +23,9 @@ Property OccupyingShip As btships.model.Ship;
 
 Property Grid As btships.model.Grid;
 
-ForeignKey GridForeignKey(Grid) References btships.model.Grid(GridIndex);
+ForeignKey GridForeignKey(Grid) References btships.model.Grid();
 
-Index GridIndex On Grid;
+Index Grid On Grid;
 
 /// Initializes a new cell with the provided arguments for initialization
 Method Initialize(xInput As %Integer, yInput As %Integer, status As %Integer) As %Status

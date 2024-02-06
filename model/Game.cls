@@ -5,10 +5,6 @@ Class btships.model.Game Extends %Persistent
 /// Players, contains their grids and status
 Property Players As array Of btships.model.Player;
 
-ForeignKey PlayerForeignKey(Players) References btships.model.Player(PlayerIndex) [ OnDelete = cascade ];
-
-Index PlayerIndex On Players;
-
 /// Game Grid X Axis Size, if undefined the default will be used
 Property GameSizeX As %Integer;
 
@@ -201,6 +197,40 @@ Method BeginGameOverPhase() As %Status
 {
     Set ..GameStatus = 3
     Return $$$OK
+}
+
+Storage Default
+{
+<Data name="CustomFleetDefinition">
+<Attribute>CustomFleetDefinition</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"CustomFleetDefinition"</Subscript>
+</Data>
+<Data name="GameDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>GameSizeX</Value>
+</Value>
+<Value name="3">
+<Value>GameSizeY</Value>
+</Value>
+<Value name="4">
+<Value>GameStatus</Value>
+</Value>
+</Data>
+<Data name="Players">
+<Attribute>Players</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"Players"</Subscript>
+</Data>
+<DataLocation>^btships.model.GameD</DataLocation>
+<DefaultData>GameDefaultData</DefaultData>
+<IdLocation>^btships.model.GameD</IdLocation>
+<IndexLocation>^btships.model.GameI</IndexLocation>
+<StreamLocation>^btships.model.GameS</StreamLocation>
+<Type>%Storage.Persistent</Type>
 }
 
 }

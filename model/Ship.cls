@@ -25,9 +25,9 @@ Property IsVerticallyAlligned As %Boolean;
 
 Property Fleet As btships.model.Fleet;
 
-ForeignKey FleetForeignKey(Fleet) References btships.model.Fleet(FleetIndex);
+ForeignKey FleetForeignKey(Fleet) References btships.model.Fleet();
 
-Index FleetIndex On Fleet;
+Index Fleet On Fleet;
 
 /// Initializes the ship with it's provided arguments to populate the properties.
 Method Initialize(length As %Integer, width As %Integer) As %Status
