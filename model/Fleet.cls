@@ -99,6 +99,9 @@ Storage Default
 <Value>StartingFleetSize</Value>
 </Value>
 <Value name="4">
+<Value>Ships</Value>
+</Value>
+<Value name="5">
 <Value>Player</Value>
 </Value>
 </Data>
@@ -106,11 +109,6 @@ Storage Default
 <Attribute>FleetTemplate</Attribute>
 <Structure>subnode</Structure>
 <Subscript>"FleetTemplate"</Subscript>
-</Data>
-<Data name="Ships">
-<Attribute>Ships</Attribute>
-<Structure>subnode</Structure>
-<Subscript>"Ships"</Subscript>
 </Data>
 <DataLocation>^btships.model.FleetD</DataLocation>
 <DefaultData>FleetDefaultData</DefaultData>

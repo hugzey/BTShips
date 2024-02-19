@@ -125,16 +125,6 @@ Method Report(reportMessage As %String) As %Status
 
 Storage Default
 {
-<Data name="Cell">
-<Attribute>Cell</Attribute>
-<Structure>subnode</Structure>
-<Subscript>"Cell"</Subscript>
-</Data>
-<Data name="GridCells">
-<Attribute>GridCells</Attribute>
-<Structure>subnode</Structure>
-<Subscript>"GridCells"</Subscript>
-</Data>
 <Data name="GridDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
@@ -146,10 +136,10 @@ Storage Default
 <Value>SizeY</Value>
 </Value>
 <Value name="4">
-<Value>Player</Value>
+<Value>GridCells</Value>
 </Value>
 <Value name="5">
-<Value>newSaleItem</Value>
+<Value>Player</Value>
 </Value>
 </Data>
 <DataLocation>^btships.model.GridD</DataLocation>
